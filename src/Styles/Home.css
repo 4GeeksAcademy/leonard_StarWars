@@ -1,0 +1,213 @@
+.home {
+  min-height: 100vh;
+  position: relative;
+  font-family: 'Pathway Gothic One', sans-serif;
+  color: white;
+  background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+}
+
+.content-wrapper {
+  position: relative;
+  z-index: 1;
+  padding: 2rem;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+.home-header {
+  margin-bottom: 4rem;
+  animation: fadeIn 1.5s ease-out;
+  text-align: center;
+}
+
+.star-wars-title {
+  font-size: 4.5rem;
+  color: #FFE81F;
+  text-transform: uppercase;
+  letter-spacing: 6px;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 0 20px rgba(255, 232, 31, 0.8);
+}
+
+.subtitle {
+  font-size: 1.5rem;
+  color: #aaa;
+  letter-spacing: 3px;
+  font-weight: 300;
+}
+
+@keyframes fadeIn {
+  from { 
+    opacity: 0; 
+    transform: translateY(20px);
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0);
+  }
+}
+
+.home-main {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 50vh;
+  font-size: 1.8rem;
+}
+
+.items-section {
+  animation: slideIn 0.8s ease-out forwards;
+  opacity: 0;
+}
+
+.items-section:nth-child(1) {
+  animation-delay: 0.1s;
+}
+.items-section:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.items-section:nth-child(3) {
+  animation-delay: 0.3s;
+}
+.items-section:nth-child(4) {
+  animation-delay: 0.4s;
+}
+.items-section:nth-child(5) {
+  animation-delay: 0.5s;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.items-section h2 {
+  font-size: 2.5rem;
+  color: var(--section-color);
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin-bottom: 2rem;
+  text-shadow: 0 0 10px rgba(255, 232, 31, 0.5);
+  position: relative;
+  padding-bottom: 1rem;
+}
+
+.items-section h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--section-color), transparent);
+  border-radius: 2px;
+}
+
+.items-scroll-container {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: auto;
+  padding: 1rem 0;
+  cursor: grab;
+  scrollbar-width: auto;
+}
+
+.items-scroll-container:active {
+  cursor: grabbing;
+}
+
+.items-scroll-container::-webkit-scrollbar {
+  height: 10px;
+}
+
+.items-scroll-container::-webkit-scrollbar-track {
+  background: rgba(255, 232, 31, 0.1);
+  border-radius: 10px;
+}
+
+.items-scroll-container::-webkit-scrollbar-thumb {
+  background: rgba(255, 232, 31, 0.5);
+  border-radius: 10px;
+  transition: background 0.3s ease;
+}
+
+.items-scroll-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 232, 31, 0.8);
+}
+
+.items-grid {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  padding: 1rem 0;
+  width: max-content;
+}
+
+@media (max-width: 1024px) {
+  .items-grid {
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .star-wars-title {
+    font-size: 3rem;
+  }
+  
+  .subtitle {
+    font-size: 1.2rem;
+  }
+  
+  .items-section h2 {
+    font-size: 2rem;
+  }
+  
+  .items-grid {
+    gap: 1rem;
+  }
+  
+  .content-wrapper {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .star-wars-title {
+    font-size: 2rem;
+    letter-spacing: 3px;
+  }
+
+  .subtitle {
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+  }
+
+  .items-section h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .items-grid {
+    gap: 0.8rem;
+  }
+
+  .content-wrapper {
+    padding: 0.8rem;
+  }
+
+  .home-main {
+    gap: 2.5rem;
+  }
+}
