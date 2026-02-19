@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useFavorites } from '../Context/FavoriteContext';
+import fallbackImage from '../assets/img/rigo-baby.jpg';
 import "../Styles/ItemCard.css";
 
 const ItemCard = ({ item, type, onLearnMore }) => {
@@ -24,6 +25,13 @@ const ItemCard = ({ item, type, onLearnMore }) => {
     }
   };
 
+  const initialImageUrl = useMemo(() => getImageUrl(), [item.uid, type]);
+  const [imageSrc, setImageSrc] = useState(initialImageUrl);
+
+  useEffect(() => {
+    setImageSrc(initialImageUrl);
+  }, [initialImageUrl]);
+
   const handleAddFavorite = () => {
     const properties = item.properties || item;
     
@@ -40,12 +48,10 @@ const ItemCard = ({ item, type, onLearnMore }) => {
     <div className="item-card">
       <div className="card-image-container">
         <img
-          src={getImageUrl()}
+          src={imageSrc}
           alt={item.name}
           className="card-image"
-          onError={(e) => {
-            e.target.src = 'https://via.placeholder.com/300x400?text=No+Image';
-          }}
+          onError={() => setImageSrc(fallbackImage)}
         />
       </div>
       

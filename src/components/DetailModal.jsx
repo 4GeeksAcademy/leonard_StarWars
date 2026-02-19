@@ -1,10 +1,9 @@
-import React from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
+import fallbackImage from '../assets/img/rigo-baby.jpg';
 import "../Styles/DetailModal.css";
-
 const DetailModal = ({ isOpen, onClose, item, type }) => {
-  if (!isOpen || !item) return null;
-
   const getDetailFields = () => {
+    if (!item) return [];
     const properties = item.properties || item;
     
     if (properties.loading) {
@@ -73,9 +72,9 @@ const DetailModal = ({ isOpen, onClose, item, type }) => {
         return [];
     }
   };
-
   const getImageUrl = () => {
     const baseUrl = 'https://starwars-visualguide.com/assets/img';
+    if (!item?.uid) return fallbackImage;
     
     if (type === 'characters') {
       return `${baseUrl}/characters/${item.uid}.jpg`;
@@ -88,11 +87,15 @@ const DetailModal = ({ isOpen, onClose, item, type }) => {
     } else if (type === 'vehicles') {
       return `${baseUrl}/vehicles/${item.uid}.jpg`;
     }
-    return 'https://via.placeholder.com/400x500?text=No+Image';
+    return fallbackImage;
   };
-
+  const initialImageUrl = useMemo(() => getImageUrl(), [item?.uid, type]);
+  const [imageSrc, setImageSrc] = useState(initialImageUrl);
+  useEffect(() => {
+    setImageSrc(initialImageUrl);
+  }, [initialImageUrl]);
+  if (!isOpen || !item) return null;
   const fields = getDetailFields();
-
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
@@ -101,11 +104,9 @@ const DetailModal = ({ isOpen, onClose, item, type }) => {
         <div className="modal-body">
           <div className="modal-image">
             <img
-              src={getImageUrl()}
+              src={imageSrc}
               alt={item.name}
-              onError={(e) => {
-                e.target.src = 'https://via.placeholder.com/400x500?text=No+Image';
-              }}
+              onError={() => setImageSrc(fallbackImage)}
             />
           </div>
           
@@ -126,5 +127,4 @@ const DetailModal = ({ isOpen, onClose, item, type }) => {
     </div>
   );
 };
-
 export default DetailModal;
